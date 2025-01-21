@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+</head>
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border;
+  }
+
+  .container {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    border-radius: 8px 8px 0 0;
+    transform: translate(-50%, -50%);
+    background: white;
+    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.4);
+  }
+
+  .result {
+    color: aliceblue;
+    padding: 20px;
+    font-size: 20px;
+    border-radius: 8px 8px 0 0;
+    background-color: #413e3e;
+  }
+
+  .button {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .row {
+    display: flex;
+    justify-content: space-around;
+    gap: 1px;
+  }
+
+  .row button {
+    width: 75px;
+    height: 75px;
+    border-radius: 0.0001;
+    outline: none;
+    font-size: 20px;
+
+  }
+
+  .row button:hover {
+    background: #e0e0e0;
+  }
+
+  .row button:active {
+    background-color: #eeb3b3;
+  }
+
+  #equal {
+    width: 150px;
+  }
+
+  #dot {
+    font-weight: 600;
+  }
+</style>
+
+<body>
+  <div class="container">
+    <div class="result">
+      <p id="result">0</p>
+    </div>
+    <div class="buttons">
+      <div class="row">
+        <button>C</button>
+        <button>DEL</button>
+        <button>+</button>
+        <button>%</button>
+      </div>
+      <div class="row">
+        <button>7</button>
+        <button>8</button>
+        <button>9</button>
+        <button>/</button>
+      </div>
+      <div class="row">
+        <button>4</button>
+        <button>5</button>
+        <button>6</button>
+        <button>*</button>
+      </div>
+      <div class="row">
+        <button>1</button>
+        <button>2</button>
+        <button>3</button>
+        <button>-</button>
+      </div>
+      <div class="row">
+        <button id="dot">.</button>
+        <button>0</button>
+        <button id="equal">=</button>
+      </div>
+    </div>
+  </div>
+  <script>
+    let buttons = document.getElementsByTagName('button');
+    let result = document.getElementById('result');
+    for (i = 0; i < buttons.length; i++) {
+      buttons[i].onclick = function () {
+        let input = this.innerText;
+        updateDisplay(input)
+      }
+    }
+    function updateDisplay(input) {
+      let currentDisplay = result.innerText
+      if (currentDisplay == "0") {
+        if (input != "C" && input != "DEL" && input != "=") {
+          result.innerText = ""
+          result.innerText = input
+        }
+      }
+      else {
+        if (input == "DEL") {
+          result.innerText = currentDisplay.substring(0, currentDisplay.length - 1)
+
+        }
+        if (input == "C") {
+          result.innerText = "0"
+        }
+        if (input != "C" && input != "DEL" && input != "=") {
+          result.innerText += input
+        }
+
+      }
+      if (input == "=") {
+        let display = result.innerText
+        result.innerText = eval(display)
+      }
+
+    }
+  </script>
+</body>
+
+</html>
